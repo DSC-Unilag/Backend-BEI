@@ -10,15 +10,10 @@ import (
 var db gorm.DB
 
 //Users ... Just a conventional user struct with name and password
-type Users struct {
-	Name     string
-	password string
-}
-
 //Question ... Posts struct
 type Question struct {
 	gorm.Model
-	Author    Users `gorm:"foreignkey:UserReferer"`
+	Author    string `gorm:"foreignkey:UserReferer"`
 	Content   string
 	UserRefer string
 	Comments  []Comment
@@ -27,7 +22,7 @@ type Question struct {
 //Comment ... Comment struct
 type Comment struct {
 	gorm.Model
-	Author     Users `gorm:"foreignkey:UserReferer"`
+	Author     string `gorm:"foreignkey:UserReferer"`
 	Content    string
 	Acceptable bool
 }
@@ -35,7 +30,7 @@ type Comment struct {
 //Reply ... Reply struct
 type Reply struct {
 	gorm.Model
-	Author  Users `gorm:"foreignkey:UserReferer"`
+	Author  string
 	Content string
 }
 
@@ -44,7 +39,7 @@ func init() {
 	if err != nil {
 		log.Fatalln("error opening database: ", err)
 	}
-	db.AutoMigrate(&Users{}, &Question{}, &Comment{}, &Reply{})
+	db.AutoMigrate(&Question{}, &Comment{}, &Reply{})
 
 }
 
@@ -64,7 +59,7 @@ func (comment *Comment) Create(question Question) {
 	db.Model(&question).Association("Comments").Append(comment)
 }
 
-func (comment *Comment) ViewComments(question Question) []Comment {
+func (comment *Comment) ViewComments() []Comment {
 	//going to get comments and replies to comments
-	db.Where(&comment).Association("Question")
+	db.First()
 }
