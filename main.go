@@ -1,22 +1,24 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
-	"github.com/jinzhu/gorm"
+	db "./database"
 )
 
-var db gorm.DB
-
-func init() {
-	db, err := gorm.Open("postgres", "user=DSC password=DSC dbname=dbname sslmode=disable")
-	if err != nil {
-		log.Fatalln("error opening database: ", err)
-	}
-	db.AutoMigrate()
-
-}
-
 func main() {
-
+	var user db.User
+	user = db.User{
+		Name: "Uti Michael",
+	}
+	user.Create()
+	fmt.Println(user)
+	var questions db.Question
+	questions = db.Question{
+		Author:  user,
+		UserID:  user.ID,
+		Content: "Hello All",
+	}
+	questions.Create()
+	fmt.Println(questions)
 }
