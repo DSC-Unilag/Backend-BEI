@@ -1,24 +1,24 @@
 const Model = require('../models/model');
 const express = require('express');
-const bodyParse = require('body-parser');
+const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 var config = require('../config');
 const router = express.Router();
-router.use(bodyParse.json());
-router.use(bodyParse.urlencoded({extended:false}));
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended:false}));
 const Users = new Model('users');
 
 module.exports = {
 
     authregister: (req, res) => {
-        bcrypt.hash(req.query.password, 8, (err, hashedPassword) => {
+        bcrypt.hash(req.body.password, 8, (err, hashedPassword) => {
             if (err){
                 res.status(500).send(err);
             }
             var newUser = {
-                name:req.query.name,
-                username:req.query.username,
+                name:req.body.name,
+                username:req.body.username,
                 password:hashedPassword
             }
             Users.insert(newUser)
@@ -37,14 +37,14 @@ module.exports = {
     },
     authlogin:(req, res) => {
         //find user by username
-        Users.find({username:req.query.username})
+        Users.find({username:req.body.username})
         .then(user => {
             //if no user
             if (user.length == 0){
               res.status(404).send('User not found');
             }
             //compare passwords synchronously
-            var isMatch = bcrypt.compareSync(req.query.password, user[0].password);
+            var isMatch = bcrypt.compareSync(req.body.password, user[0].password);
                 if (isMatch){
                 var token = jwt.sign({id:user[0].id},
                         config.secretconfig.secret,

@@ -7,6 +7,8 @@ module.exports = {
         password:"",
         database:"stackoverflow"
     },
+    
+    //jsonwebtoken secret config
     secretconfig:{
         'secret':'supersecret'
     }

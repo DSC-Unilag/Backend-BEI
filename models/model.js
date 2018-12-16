@@ -1,15 +1,4 @@
-const mysql = require('mysql');
-const {dbOptions} = require('../config');
-const fs = require('fs');
-
-const pool = mysql.createPool(dbOptions);
-
-pool.getConnection((error, conn) => {
-    if(error){
-        console.log(error.message)
-    }
-    console.log('connected');
-})
+const Pool = require('../database/pool')
 
 class Model {
     constructor(table){
@@ -22,7 +11,7 @@ class Model {
     //execute sql in Promise
     executeSQL(sql){
         return new Promise((resolve, reject) =>{
-            pool.getConnection((error, conn) => {
+            Pool.getConnection((error, conn) => {
                 if(error){
                     console.log(error.message)
                 }

@@ -45,8 +45,8 @@ module.exports = {
         },
         postAnswerToAQuestion: (req, res) => {
             const newAnswer = {
-                user_id:req.query.user_id,
-                description:req.query.description,
+                user_id:req.body.user_id,
+                description:req.body.description,
                 question_id:req.params.id
             }
             const Answers = new Model('answers');
@@ -69,7 +69,7 @@ module.exports = {
                 var newUpvotes = currentUpvotes + 1;
                 Answers.update({upvotes:newUpvotes}, {id: answer_id})
                 .then(result => {
-                        res.status(200).json(result);
+                        
                 }).catch(error => {
                     res.status(500).json(error.message);
                 })
@@ -84,8 +84,8 @@ module.exports = {
         createComment: (req, res) => {
 
             const newComment = {
-                user_id:req.query.user_id,
-                text:req.query.text,
+                user_id:req.body.user_id,
+                text:req.body.text,
                 question_id:req.params.qid,
                 answer_id:req.params.id
             }
