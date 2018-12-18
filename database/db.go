@@ -106,7 +106,6 @@ func (user *User) Retrieve() error {
 			fmt.Println(err)
 		}
 		fmt.Println(comments)
-		//bug seems to be here
 		user.Questions[comments.QuestionID-1].Comments = append(user.Questions[comments.QuestionID-1].Comments, comments)
 
 	}
