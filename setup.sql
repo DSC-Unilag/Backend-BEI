@@ -1,6 +1,6 @@
 
 CREATE TABLE users(
-    id serial primary KEY,
+    id serial primary KEY UNIQUE,
     author VARCHAR(255),
     created_at TIMESTAMP not null DEFAULT current_timestamp
 );
