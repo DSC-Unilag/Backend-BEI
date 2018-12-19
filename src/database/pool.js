@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const {dbOptions} = require('../config');
+const {dbOptions} = require('../helpers/config');
 
 const Pool = mysql.createPool(dbOptions);
 
