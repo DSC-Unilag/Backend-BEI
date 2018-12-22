@@ -1,10 +1,8 @@
-const Model = require('../models/model');
-const express = require('express');
+const Model = require('../models/tables');
 
-//functions to handle routes
-module.exports = { 
-		
-	getAnswersForAQuestion:(req, res) => {
+
+//functions to handle routes		
+	exports.getAnswersForAQuestion = (req, res) => {
   	//answers come with the users' information 
     const question_id = req.params.id;
     const Answers = new Model('answers')
@@ -23,9 +21,9 @@ module.exports = {
         res.status(500).json({message:"error occured while trying to retrieve Answers"})
         console.log(error.message)
       })
-    },
+    }
 
-  getUsersComments:(req, res) => {
+  exports.getUsersComments = (req, res) => {
     //this function returns the comments by users for a particular Answer
     	const question_id = req.params.qid;
       const answer_id = req.params.id;
@@ -45,9 +43,9 @@ module.exports = {
         	res.status(500).json({message:"error occured while trying to retrieve comments"})
           console.log(error.message)
       })
-    },
+    }
 
-    postAnswerToAQuestion: (req, res) => {
+    exports.postAnswerToAQuestion = (req, res) => {
     	const newAnswer = {
 				user_id:req.body.user_id,
 				description:req.body.description,
@@ -61,9 +59,9 @@ module.exports = {
           console.log(error.message)
           res.status(500).json({message:"something went wrong from the server"})
       })
-    },
+    }
 
-  upvoteAnswer: (req, res) => {
+  exports.upvoteAnswer  = (req, res) => {
     const answer_id = req.params.id;
     const Answers = new Model('answers')
     var sql = `SELECT upvotes FROM ${Answers.table} WHERE id = ${answer_id}`;
@@ -80,9 +78,9 @@ module.exports = {
           res.status(500).json(error.message);
         })
   	})
-	},
+	}
 
-  acceptAsPreferred: (req, res) => {
+  exports.acceptAsPreferred = (req, res) => {
 		const answer_id = req.params.id;
 		const user_id = req.params.userid;
 		const Answers = new Model('answers')
@@ -95,9 +93,9 @@ module.exports = {
 			res.status(500).json(error.message);
 		})
 
-  },
+  }
 
-  createComment: (req, res) => {
+  exports.createComment = (req, res) => {
     const newComment = {
       user_id:req.body.user_id,
       text:req.body.text,
@@ -113,4 +111,3 @@ module.exports = {
     })
 	}
 	
-}

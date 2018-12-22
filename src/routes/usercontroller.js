@@ -1,10 +1,9 @@
-const Model = require('../models/model');
+const Model = require('../models/tables');
 const express = require('express');
 
-//functions to handle routes
-module.exports = {
+//functions to handle user routes
 
-   getUserprofile: (req, res) => {
+   exports.getUserprofile  = (req, res) => {
    	const user_id = req.params.id;
       const Users = new Model('users')
       var sql = `SELECT * FROM ${Users.table} WHERE id=${user_id}`;
@@ -16,15 +15,15 @@ module.exports = {
          res.status(500).json({message:"error occured while trying to retrieve user info"})
          Sconsole.log(error.message)
       })
-   },
+   }
 
-   getUserQuestions:(req,res) => {
+   exports.getUserQuestions = (req,res) => {
       //answers come with the users' information 
       const user_id = req.params.id;
       const Questions = new Model('questions')
       var sql = `SELECT questions.*, users.name,users.username FROM ${Questions.table} 
                   INNER JOIN users ON questions.user_id = users.id
-                  WHERE questions.user_id=${user_id} `;
+                  WHERE questions.user_id=${user_id} ORDER BY questions.date_created DESC`;
       Questions.executeQuery(sql).then(result => {
          res.status(200).json({count:result.length, result:result});
 		}).catch(error => {
@@ -33,4 +32,3 @@ module.exports = {
       })
    }
 
-}

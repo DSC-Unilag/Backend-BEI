@@ -51,11 +51,11 @@ app.get('/api/v1/answers/:qid/:id/comments', Answercontroller.getUsersComments)
 
 app.put('/api/v1/answers/:id/:userid/upvote', Answercontroller.upvoteAnswer)
 
-app.patch('/api/v1/answers/:id/accept', Answercontroller.acceptAsPreferred)
+app.put('/api/v1/answers/:id/accept', Answercontroller.acceptAsPreferred)
 
 app.get('/api/v1/search/questions', Questioncontroller.searchQuestions);
 
 
-app.listen(3000,() =>{
-    console.log("server started at port: " + 3000);
+app.listen(8000,() =>{
+    console.log("server started at port: " + 8000);
 })

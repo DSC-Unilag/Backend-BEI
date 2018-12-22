@@ -4,7 +4,7 @@
   "description": "a simple stackoverflow feautures clone for dsc unilag",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon src/app.js",
     "build": "babel src -d public"
   },
   "author": "Joseph",

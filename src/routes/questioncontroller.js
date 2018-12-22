@@ -1,10 +1,8 @@
-const Model = require('../models/model');
+const Model = require('../models/tables');
 const express = require('express');
 
 //functions to handle routes
-module.exports = {
-
-  getAllQuestions: (req, res) => {
+    exports.getAllQuestions = (req, res) => {
     //get all questions along with user
     const Questions = new Model('questions')
     var sql = `SELECT questions.*,users.name FROM ${Questions.table}
@@ -16,9 +14,9 @@ module.exports = {
       	res.status(500).json({message:"error occured while trying to retrieve question"})
         console.log(error.message)
       })
-  },
+  }
 
-  postQuestion: (req, res) => {
+  exports.postQuestion = (req, res) => {
     const newQuestion = {
       user_id:req.body.user_id,
       title:req.body.title,
@@ -30,9 +28,9 @@ module.exports = {
     }).catch(error => {
       res.status(500).json({message:"something went wrong from the server"})
     })
-  },
+  }
 
-  deleteQuestion: (req, res) => {
+  exports.deleteQuestion = (req, res) => {
     const question_id = req.params.id;
     const Questions = new Model('questions');
     Questions.delete({id: question_id}.then(() => {
@@ -41,9 +39,9 @@ module.exports = {
         console.log(error.stack)
         res.status(500).json({message:"couldn't delete question"});
     }));
-  },
+  }
 
-  getSingleQuestion: (req, res) => {
+  exports.getSingleQuestion = (req, res) => {
     //get single question along with poster details
     const question_id = req.params.id;
     const Questions = new Model('questions')
@@ -55,9 +53,9 @@ module.exports = {
         res.status(500).json({message:"error occured while trying to retrieve question"})
         console.log(error.message)
     })
-  },
+  }
 
-  searchQuestions: (req, res) => {
+  exports.searchQuestions = (req, res) => {
             //search for questions using a keyword.
     const searchQuery = req.query.s;
     const Questions = new Model('questions');
@@ -71,4 +69,3 @@ module.exports = {
     })
   }
 
-}
