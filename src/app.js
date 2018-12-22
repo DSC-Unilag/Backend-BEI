@@ -56,6 +56,6 @@ app.put('/api/v1/answers/:id/accept', Answercontroller.acceptAsPreferred)
 app.get('/api/v1/search/questions', Questioncontroller.searchQuestions);
 
 
-app.listen(8000,() =>{
+app.listen(process.env.PORT ||  8000  ,() =>{
     console.log("server started at port: " + 8000);
 })
