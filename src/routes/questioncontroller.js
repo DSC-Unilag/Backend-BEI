@@ -5,7 +5,7 @@ const express = require('express');
     exports.getAllQuestions = (req, res) => {
     //get all questions along with user
     const Questions = new Model('questions')
-    var sql = `SELECT questions.*,users.name FROM ${Questions.table}
+    var sql = `SELECT questions.*,users.name,users.username FROM ${Questions.table}
                 INNER JOIN users ON questions.user_id = users.id ORDER BY date_created DESC`;
 		Questions.executeQuery(sql)
 		.then(result => {

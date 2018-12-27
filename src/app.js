@@ -25,7 +25,7 @@ app.post('/api/v1/auth/register', Authcontroller.authRegister )
 app.post('/api/v1/auth/login',  Authcontroller.authLogin )
 
 //middleware to verify token across all routes
-app.use(verifyToken);
+//app.use(verifyToken);
 
 app.get('/api/v1/auth/me' , Authcontroller.testToken)
 

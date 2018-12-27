@@ -16,9 +16,9 @@ const Model = require('../models/tables');
     	if (result.length){
         res.status(200).json({count:result.length, result: result});
       }
-      res.status(404).json({count:result.length, message:"no answer for this question"})
+      res.status(201).json({count:result.length, message:"no answer for this question"})
     }).catch(error => {
-        res.status(500).json({message:"error occured while trying to retrieve Answers"})
+        //res.status(500).json({message:"error occured while trying to retrieve Answers"})
         console.log(error.message)
       })
     }

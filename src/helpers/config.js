@@ -2,10 +2,10 @@ module.exports = {
     // Mysql setup
     dbOptions:{
         
-        host:"localhost",
+        host:"db4free.net",
         port:3306,
-        user:"root",
-        password:"",
+        user:"josephtesla",
+        password:"excel@98",
         database:"stackoverflow"
     },
     
