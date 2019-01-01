@@ -1,11 +1,8 @@
-const Model = require('../models/tables');
-
 
 //functions to handle routes		
 	exports.getAnswersForAQuestion = (req, res) => {
   	//answers come with the users' information 
     const question_id = req.params.id;
-    const Answers = new Model('answers')
     var sql = `SELECT answers.*, users.name,
                 users.username FROM ${Answers.table} 
                 INNER JOIN users ON answers.user_id = users.id
